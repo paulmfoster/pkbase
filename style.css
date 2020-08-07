@@ -1,0 +1,174 @@
+body {
+	width: 75%;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+}
+
+/**********
+ * header *
+ **********/
+
+#header {
+	position: relative;
+	height: 85px;	
+	border-width: 0 0 4px 0;
+	border-style: solid;
+	border-color: #86001a;
+}
+
+#site-title {
+	position: absolute;
+	margin: 0; padding: 0;
+	font-weight: bold;
+	font-size: 2em;
+	top: 0;
+   	left: 5px;	
+	display: block;
+	color: #8c001a;
+}
+
+#slogan {
+	color: #8c001a;
+	font-size: 1.75em;
+	text-indent: 0px;
+	font-weight: bold;
+	display: block;
+	position: absolute;
+	margin: 20px;
+	padding: 20px;
+}
+
+
+#header form.searchform {
+	position: absolute;
+	top: 0; 
+	right: 0px;
+}
+
+/**************
+ * end header *
+ **************/
+
+#locator {
+	font-size: 1em;
+	height: 1.5em;
+	border-width: 0 0 4px 0;
+	border-style: solid;
+	border-color: #86001a;
+}
+
+
+#leftbar {
+	float: left;
+	display: block;
+	width: 33%;
+	background: #dddddd;
+}
+
+#leftbar ul {
+}
+
+#leftbar li {
+	font-size: 1em;
+	list-style: none;
+	font-weight: bold;
+	color: #000080;
+}
+
+#leftbar li a {
+	text-decoration: none;
+	color: #86001a;
+	display: block;
+}
+
+#leftbar li a:hover {
+	color: #0000cd;
+}
+
+#main {
+	margin: 0 0 0 35%;
+}
+
+pre {
+	background-color: #dddddd;
+	padding: 3px;
+	overflow: auto;
+	font-size: 1.25em;
+}
+
+input[type="submit"] {
+    background-color: #86001a;
+    color: white;
+    border: 1px solid black;
+    padding: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: white;
+    color: #86001a;
+}
+
+blockquote {
+	font-style: italic;
+}
+
+#footer {
+	clear: both;
+	border-width: 4px 0 0 0;
+	border-style: solid;
+	border-color: #86001a;
+}
+
+.failure-message {
+    background: yellow;
+    font-size: 100%;
+    line-height: /* 1.6em */ 2.0em;
+    color: red;
+    padding: 10px 10px 10px 10px;
+    margin: 20px 0 20px 0;
+    font-weight: bold;
+}
+
+.success-message {
+    background: #CCCCCC;
+    font-size: 100%;
+    line-height: /* 1.6em */ 2.0em;
+    color: red;
+    padding: 10px 10px 10px 10px;
+    margin: 20px 0 20px 0;
+    font-weight: bold;
+}
+
+code {
+	font-family: monospace;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	background-color: #DDDDDD;
+}
+
+button[type="button"] {
+	background-color: #86001a;
+	color: white;
+    border: 1px solid black;
+    padding: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight: bold;
+    cursor: pointer;
+	float: right;
+}
+
+button[type="button"]:hover {
+	background-color: white;
+	color: #86001a;
+}
+
