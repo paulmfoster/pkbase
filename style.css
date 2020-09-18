@@ -54,8 +54,18 @@ body {
 	border-width: 0 0 4px 0;
 	border-style: solid;
 	border-color: #86001a;
+	padding: 0 0 10px 0;
 }
 
+#locator-text {
+	padding: 5px 0 0 0;
+	font-size: 1.0em;
+	float: left;
+}
+
+#locator-buttons {
+	float: right;
+}
 
 #leftbar {
 	float: left;
@@ -160,11 +170,9 @@ button[type="button"] {
 	color: white;
     border: 1px solid black;
     padding: 4px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+	margin: 2px 0px 2px 0px;
     font-weight: bold;
     cursor: pointer;
-	float: right;
 }
 
 button[type="button"]:hover {

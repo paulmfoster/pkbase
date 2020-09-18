@@ -16,17 +16,18 @@
   			<input type="submit" name="search" class="button" value="Search" /></p>
 		</form>
 			
-	</div>	
+	</div> <!-- header -->	
 
 	<div id="locator">
-<?php if (!empty($page)) echo $page . $cfg['suffix']; ?>
-	</div>
+<?php if (!empty($page)): ?>
+<?php echo '<div id="locator-text">'. $page . $cfg['suffix'] . '</div>'; ?>
+<?php endif; ?>
+<?php show_buttons($buttons, $page, $title); ?>
+
+	</div> <!-- locator -->
 											
 	<div id="leftbar" >							
-		<a href="rebuild.php"><button type="button">Rebuild Index</button></a>
-		&nbsp;
-		<a href="index.php"><button type="button">Random</button></a>
-		<?php echo $pkb->index; ?>
+		<?php echo $pkb2->show_index(); ?>
 	</div>
 			
 	<div id="main">	
@@ -35,4 +36,3 @@
 	<?php show_messages(); ?>
 	<!-- END OF MESSAGES ---------------------->
 
-	<h1><?php echo $title; ?></h1>

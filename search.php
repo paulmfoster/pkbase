@@ -10,12 +10,14 @@ if (is_null($search_for)) {
 	exit();
 }
 
-$results = $pkb->get_search_results($search_for);
+$results = $pkb2->get_search_results($search_for);
 $numfiles = count($results);
 
+$buttons = 'RIA';
 $page = '';
 $title = 'Search Results';
 
-include 'views/head.view.php';
-include 'views/search.view.php';
-include 'views/footer.view.php';
+$view_file = 'views/search.view.php';
+
+include 'view.php';
+

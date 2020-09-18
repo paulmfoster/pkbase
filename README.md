@@ -1,10 +1,14 @@
-# Paul's Knowledge Base
+# Paul's Knowledge Base Version 2
 
-This package is designed to make available to non-programmers via a web
-server the contents of your personal wiki. I use the word "wiki"
-throughout, only because that is the tool you use as an author. From the
-perspective of the user (not author), this looks like a knowledge base.
-The difference is that this "wiki" has a visible index.
+PKBase2 is like a wiki in web format, except you also have an
+index on screen for all your files, and you have categories for
+your various notes, lists, etc.
+
+PKBase2 is a significant upgrade from the original version.
+Originally, it was designed solely as a web front end for viewing
+markdown files managed on the back end with Vim and Vimwiki.
+Version 2 introduces the ability to manage your files completely
+in PKBase2.
 
 It assumes several things:
 
@@ -14,8 +18,8 @@ It assumes several things:
 * Your local machine has a web server on it.
 * You want to make the contents of your wiki available to others.
 
-Basically, you administer your wiki/knowledge base with Vimwiki, and
-others can see your content using a web interface.
+Normally, you would administer your knowledge base with Vimwiki,
+but you can do so with PKBase2 instead, if you like.
 
 ## Installation
 
@@ -40,11 +44,17 @@ If you make this file the index for your wiki, you can add files on the
 fly as you normally would in Vimwiki, by creating a Vimwiki link, and
 hitting **Enter** on it to go to that file.
 
+This assumes you already have content for your knowledge base. If
+you don't, PKBase2 will remind you to create some. If you do
+already have content, once you install PKBase2, hit the "Rebuild
+Index" button to synchronize PKBase2 with your existing files.
+
 ## Customization
 
 The `config/config.ini` file allows you to change the name of your wiki,
 the name of the content directory, etc. You are advised to edit this
-before installation.
+before installation. You can change the name of the site, the
+"slogan", and various other aspects.
 
 ## Use Case
 
