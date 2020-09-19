@@ -79,7 +79,7 @@ using Vimwiki is that I can hit **Enter** on a link and go to that file,
 which will be created if it doesn't exist. Hit **Backspace** in that file
 to go back to where I came from (the index file).
 
-If you make changes to the contents of your content directory, there is
+If you make changes to the contents of your content directory using Vim, there is
 a button named "Rebuild Index" every page of the site. This will
 generate a new `toc.md` (index) page for you.
 

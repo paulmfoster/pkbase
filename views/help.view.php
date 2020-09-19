@@ -61,9 +61,10 @@ synchronization process can take up to 30 seconds.
 </p>
 <h2>Directories</h2>
 <p>
-File directories serve as the "categories" or "headings" for the various types
-of information you store. Currently, there is no way to create or remove these
-things in PKBase2. You must do this at the filesystem level.
+File directories serve as the "categories" or "topics" for the various types
+of information you store. You can add and delete directories/topics by
+pressing the <strong>Topics</strong> button. Be aware that deleting a
+directory which contains "children" (pages) also deletes those pages.
 </p>
 <h2>File and Directory Names</h2>
 <p>
