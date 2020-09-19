@@ -28,7 +28,7 @@ EOT;
 else {
 	$page = $file['name'];
 	$title = $file['title'];
-	$buttons = 'RIEDA';
+	$buttons = 'RITEDA';
 
 	$text = file_get_contents($page . $cfg['suffix']);
 	if ($cfg['suffix'] == '.md') {

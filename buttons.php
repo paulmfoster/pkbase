@@ -12,6 +12,9 @@ function show_buttons($buttons, $page = '', $title = '')
 	if (strchr($buttons, 'I')) {
 		form::button('Rebuild Index', 'rebuild.php');
 	}
+	if (strchr($buttons, 'T')) {
+		form::button('Topics', 'topics.php');
+	}
 	if (strchr($buttons, 'E')) {
 		form::button('Edit Page', 'nodeedt.php?page=' . $page . '&title=' . $title);
 	}

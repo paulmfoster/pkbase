@@ -152,6 +152,10 @@ blockquote {
     font-weight: bold;
 }
 
+label {
+	font-weight: bold;
+}
+
 code {
 	font-family: monospace;
 	font-weight: bold;

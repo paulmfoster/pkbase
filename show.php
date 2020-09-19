@@ -4,7 +4,7 @@ include 'init.php';
 
 $page = $_GET['page'];
 $title = $_GET['title'];
-$buttons = 'RIEDA';
+$buttons = 'RITEDA';
 
 $text = file_get_contents($page . '.md');
 
