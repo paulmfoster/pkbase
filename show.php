@@ -4,7 +4,12 @@ include 'init.php';
 
 $page = $_GET['page'];
 $title = $_GET['title'];
-$buttons = 'RITEDA';
+if ($is_author) {
+	$buttons = 'RITEDA';
+}
+else {
+	$buttons = 'R';
+}
 
 $text = file_get_contents($page . '.md');
 

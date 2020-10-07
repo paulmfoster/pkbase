@@ -28,6 +28,13 @@ function instrument($label, $var)
 
 $cfg = parse_ini_file('config/config.ini');
 
+if (file_exists($cfg['toc_file'])) {
+	$is_author = TRUE;
+}
+else {
+	$is_author = FALSE;
+}
+
 // 2592000 = 30 days
 ini_set('session.gc_maxlifetime', 2592000);
 ini_set('session.cookie_lifetime', 2592000);
