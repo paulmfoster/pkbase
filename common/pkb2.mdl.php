@@ -573,6 +573,7 @@ class pkb2
 		];
 
 		$this->db->insert('tree', $rec);
+		$this->rewrite_toc();
 	}
 
 	function update_node($post)
