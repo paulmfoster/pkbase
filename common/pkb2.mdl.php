@@ -97,6 +97,7 @@ class pkb2
 
 	function make_tree()
 	{
+		unset($this->tree);
 		$this->tree[] = $this->recs[0];
 		$this->treeify($this->recs[0]);
 	}
@@ -573,6 +574,8 @@ class pkb2
 		];
 
 		$this->db->insert('tree', $rec);
+		$this->fetch_records();
+		$this->make_tree();	
 		$this->rewrite_toc();
 	}
 
