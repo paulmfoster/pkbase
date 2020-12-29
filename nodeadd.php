@@ -4,9 +4,18 @@ include 'init.php';
 
 $action = $_POST['s1'] ?? 'new';
 
+$sidebar = $pkb3->get_sidebar($cfg['content_dir']);
+
+
 if ($action == 'new') {
 
-	$dirs = $pkb2->get_dirs();
+	$extensions = explode(';', $cfg['extensions']);
+	$ext_options = [];
+	foreach ($extensions as $ext) {
+		$ext_options[] = ['lbl' => $ext, 'val' => $ext];
+	}
+
+	$dirs = $pkb3->get_dirs();
 	$dirs_options = [];
 	foreach ($dirs as $dir) {
 		$dirs_options[] = ['lbl' => $dir, 'val' => $dir];
@@ -30,6 +39,11 @@ if ($action == 'new') {
 			'rows' => 50,
 			'cols' => 75
 		],
+		'extension' => [
+			'name' => 'extension',
+			'type' => 'select',
+			'options' => $ext_options
+		],
 		's1' => [
 			'name' => 's1',
 			'type' => 'submit',
@@ -41,9 +55,9 @@ if ($action == 'new') {
 
 }
 elseif ($action == 'Save') {
-	$pkb2->add_node($_POST);
+	$filename = $pkb3->add_node($_POST);
 	emsg('S', 'Node successfully added');
-	header('Location: ' . 'index.php');
+	header('Location: ' . 'show.php?page=' . $filename);
 	exit();
 }
 	

@@ -2,58 +2,27 @@
 
 include 'init.php';
 
-/*
-$action = $_POST['s1'] ?? 'new';
+$page = $_GET['page'] ?? FALSE;
+$action = $_POST['s1'] ?? FALSE;
 
-if ($action == 'new') {
-	$page_options = [];
-
-	foreach ($pkb2->recs as $page) {
-		if (!is_dir($page['name'])) {
-			$posn = strrpos($page['parent'], '/');
-			if ($posn !== FALSE) {
-				// select the last segment of parent name
-				$stub_parent = substr($page['parent'], $posn);
-			}
-			else {
-				$stub_parent = $page['parent'];
-			}
-
-			$page_options[] = ['lbl' => '(.../' . $stub_parent . ') ' . $page['title'], 'val' => $page['name']];
-		}
+if (!$page) {
+	if (!$action) {
+		// random call to this script
+		header('Location: index.php');
+		exit();
 	}
-
-	$fields = [
-		'page' => [
-			'name' => 'page',
-			'type' => 'select',
-			'options' => $page_options
-		],
-		's1' => [
-			'name' => 's1',
-			'type' => 'submit',
-			'value' => 'Delete'
-		]
-	];
-
-	$form = new form($fields);
-
+	else {
+		// confirmed deletion
+		$ekb3->delete_node($_POST['page']);
+		header('Location: ' . 'index.php');
+		exit();
+	}
 }
 else {
-
-	$pkb2->delete_node($_POST);
-	header('Location: ' . 'index.php');
-	exit();
-}
-
- */
-
-$page = $_GET['page'] ?? FALSE;
-$title = $_GET['title'] ?? FALSE;
-
-$action = $_POST['s1'] ?? 'new';
-
-if ($action == 'new' && $page && $title) {
+	// show the page and confirm button
+	$title = $pkb3->get_title_from_filename(pathinfo($page, PATHINFO_FILENAME));
+	$sidebar = $pkb3->parent_sidebar($page);
+	$buttons = 'I';
 
 	$fields = [
 		'page' => [
@@ -69,22 +38,7 @@ if ($action == 'new' && $page && $title) {
 	];
 
 	$form = new form($fields);
-
-	$content = $pkb2->get_file($page . $cfg['suffix']);
-
-	$buttons = 'RI';
-
-}
-elseif ($action == 'Confirm Deletion') {
-	$pkb2->delete_node($_POST['page']);
-
-	header('Location: ' . 'index.php');
-	exit();
-}
-else {
-	// shouldn't happen
-	header('Location: ' . 'index.php');
-	exit();
+	$content = $pkb3->get_content($page);
 }
 
 $view_file = 'views/nodedel.view.php';

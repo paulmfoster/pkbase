@@ -5,6 +5,8 @@
 <br/>
 <label>Title</label>&nbsp;<?php $form->text('title'); ?>
 <br/>
+<label>Extension</label>&nbsp;<?php $form->select('extension'); ?>
+<br/>
 <label>Content</label>
 <br/>
 <?php $form->textarea('content'); ?>

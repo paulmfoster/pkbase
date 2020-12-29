@@ -28,13 +28,6 @@ function instrument($label, $var)
 
 $cfg = parse_ini_file('config/config.ini');
 
-if (file_exists($cfg['toc_file'])) {
-	$is_author = TRUE;
-}
-else {
-	$is_author = FALSE;
-}
-
 // 2592000 = 30 days
 ini_set('session.gc_maxlifetime', 2592000);
 ini_set('session.cookie_lifetime', 2592000);
@@ -63,14 +56,14 @@ $common_dir = 'common/';
 include $common_dir . 'errors.inc.php';
 include $common_dir . 'messages.inc.php';
 include $common_dir . 'form.lib.php';
-include $common_dir . 'pkb2.mdl.php';
-include $common_dir . 'Parsedown.php';
-include $common_dir . 'database.lib.php';
+include $common_dir . 'pkb3.mdl.php';
+// include $common_dir . 'Parsedown.php';
+// include $common_dir . 'database.lib.php';
 
 include 'buttons.php';
 
-$db = new database($cfg);
+// $db = new database($cfg);
 
-$pkb2 = new pkb2($db);
-$pd = new Parsedown();
+$pkb3 = new pkb3();
+// $pd = new Parsedown();
 

@@ -1,60 +1,9 @@
-# Paul's Knowledge Base Version 2
 
-PKBase2 is like a wiki in web format, except you also have an
-index on screen for all your files, and you have categories for
-your various notes, lists, etc.
-
-PKBase2 is a significant upgrade from the original version.
-Originally, it was designed solely as a web front end for viewing
-markdown files managed on the back end with Vim and Vimwiki.
-Version 2 introduces the ability to manage your files completely
-in PKBase2.
-
-It assumes several things:
-
-* You're doing a personal wiki on your local machine.
-* Your wiki is being done with Vimwiki.
-* Your wiki is using Markdown markup, rather than Vimwiki markup.
-* Your local machine has a web server on it.
-* You want to make the contents of your wiki available to others.
-
-Normally, you would administer your knowledge base with Vimwiki,
-but you can do so with PKBase2 instead, if you like.
-
-## Installation
-
-Copy this software to some directory served by your web server. Your
-content will go in the `content` directory of the site. Create a
-`toc.md` file in that directory which is an index of the files in your
-wiki. You may add files and create new directories with files in them.
-Your `toc.md` which looks like this:
-
-```
-* Foods
-	* Fruits
-		[[content/foods/fruits/apple.md|Apples]]
-		[[content/foods/fruits/peaches.md|Peaches]]
-		[[content/foods/fruits/grapes.md|Grapes]]
-	* Meats
-		[[content/foods/meats/lamb.md|Lamb]]
-		[[content/foods/meats/beef.md|Beef]]
-```
-
-If you make this file the index for your wiki, you can add files on the
-fly as you normally would in Vimwiki, by creating a Vimwiki link, and
-hitting **Enter** on it to go to that file.
-
-This assumes you already have content for your knowledge base. If
-you don't, PKBase2 will remind you to create some. If you do
-already have content, once you install PKBase2, hit the "Rebuild
-Index" button to synchronize PKBase2 with your existing files.
-
-## Customization
-
-The `config/config.ini` file allows you to change the name of your wiki,
-the name of the content directory, etc. You are advised to edit this
-before installation. You can change the name of the site, the
-"slogan", and various other aspects.
+PKBase is like a wiki in web format, except that you also have
+an index on screen for your files. Most wikis store your data/documents
+in one directory. PKBase stores files in various subdirectories
+of your choosing. You may search your documents, or go to a
+specific directory/topic to see a given file.
 
 ## Use Case
 
@@ -63,23 +12,113 @@ into my personal wiki, like details on appliances I've bought, cheat
 sheets for software I use, construction project details, etc. My wife
 can't access this information normally (it's on my personal machine),
 and doesn't have the expertise to handle Vim or Vimwiki. Still, she
-might need access to some of this information. So I run it on a web
+might need access to some of this information. So I run PKBase on a web
 server on my machine, and she can surf to my webserver from her machine.
+
+## Prerequisites
+
+- A running web server you have access to.
+- PHP installed on your web server.
+- A place to house and edit your knowldege base files.
+
+## Installation
+
+Create a directory under your webserver which will hold this
+software, and copy it there. Edit your `config/config.ini`.
+Change the following lines to suit your needs:
+
+```
+content_dir = /home/paulf/pkbase
+site_title = "Paul's Knowledge Base"
+slogan = "All you need to know..."
+```
+
+Any values after the equals sign which contain spaces must be
+enclosed in double quotes, as above.
+
+You may now add content (files and subdirectories) to the
+`content_dir` you selected above. I keep content in my home
+directory, rather than under the webserver directory hierarchy.
+You're free to choose differently.
+
+## Operation
+
+The software displays a listing of the directories and files in
+your top level content directory along the left side of the page.
+You may click on any of these links to either view the file, or
+explore the contents of the directory.
+
+Typically, it's expected that you would manage your files in the
+editor of your choice. However, you can, instead, add, edit and
+delete files in this software. Towards the top on the right will
+be buttons which allow you to edit, delete and add files. Each
+takes you to a screen designed to handle that task. The operation
+is dead simple. After you've made changes, click the "confirm"
+button.
+
+Adding a file requires you to select a "topic" or directory in
+which to put the file. It also asks you for an "extension" for
+the file. This can be `.md`, `.otl`, `.txt` or `.html`.
+
+This software will display **PDF** files if you have them in one
+of your subdirectories, but you cannot edit or add them here.
+
+There is also a "Topics" button on the upper right. This allows
+you to create a new subdirectory. For this, you must pick the
+directory this subdirectory belongs in.
+
+For files and directories, you may use any characters you like. I
+typically use capitalized phrases which I'll be able to easily
+recognize later. However, when the file or directory name is
+stored, any spaces will be turned into hyphens, and any
+non-alphanumeric characters will be removed. When the file or
+directory name is later displayed, The hyphens are turned into
+spaces again, and individual words are capitalized ("title
+case"). You are advised to follow these conventions if you create
+files in your editor. I haven't tested the results if you don't.
+
+There is a "search" area in the upper right corner of the page.
+You may enter any search term there and hit the button. Documents
+which match your search will be listed, and you may click on one
+to see it.
+
+## License
+
+You may use this software any way you like, and may modify it if
+you prefer. All the code is included. If you make changes and
+redistribute this software modified or unmodified to others, you
+are required to include your source code. The terms of your use
+are dictated by the GPLv2.
 
 ## Technical Details
 
-This package uses the Parsedown library to parse content from your wiki
-pages, meaning you'll have to use markdown in your wiki. If you use
-Vimwiki markup instead, you'll have to substitute some library which
-understands Vimwiki markup to do your translation. Or, I suppose you
-could write everything in HTHL. Good luck with that.
+This application is written in PHP. It uses the **Parsedown**
+library to parse content in "markdown" format. It assumes
+markdown files have a `.md` extension. Markdown allows you to
+specify bold and italic text, various levels of headline, tables,
+and a variety of other types of formatting. It will also display Vim
+"outline" files with an `.otl` extension. It will also display
+files which have a `.txt` extension (plain text files). For the
+latter two, it will maintain the formatting in the file. You may
+also serve up `.html` files, which will be displayed as is.
 
-Come to think of it, you could use any markup you want. The advantage of
-using Vimwiki is that I can hit **Enter** on a link and go to that file,
-which will be created if it doesn't exist. Hit **Backspace** in that file
-to go back to where I came from (the index file).
+## Changes in Paul's Knowledge Base Version 3
 
-If you make changes to the contents of your content directory using Vim, there is
-a button named "Rebuild Index" every page of the site. This will
-generate a new `toc.md` (index) page for you.
+Removes the limitation of only using markdown files. Now you may
+use Vim outline files and straight text files, as well as
+straight HTML files. You may also view PDF files, but there is no
+provision for creating or editing them.
+
+Removes the database portion of the software. This version scans
+your content directory on page loads, and creates its own
+in-memory index or your files and directories. In version 2,
+changes made to the underlying files could force a lengthy
+recreation of the database.
+
+Eliminates the Table of Contents file used in Vimwiki to manage
+the whole collection of files.
+
+Changes the left hand index to show the current level's files and
+directories. You may click on a directory to see the files in it.
+This vastly simplified index processing.
 

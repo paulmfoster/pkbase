@@ -6,20 +6,14 @@ function show_buttons($buttons, $page = '', $title = '')
 
 	form::button('Help', 'help.php');
 
-	if (strchr($buttons, 'R')) {
-		form::button('Random Page', 'index.php');
-	}
-	if (strchr($buttons, 'I')) {
-		form::button('Rebuild Index', 'rebuild.php');
-	}
 	if (strchr($buttons, 'T')) {
 		form::button('Topics', 'topics.php');
 	}
 	if (strchr($buttons, 'E')) {
-		form::button('Edit Page', 'nodeedt.php?page=' . $page . '&title=' . $title);
+		form::button('Edit Page', 'nodeedt.php?page=' . $page);
 	}
 	if (strchr($buttons, 'D')) {
-		form::button('Delete Page', 'nodedel.php?page=' . $page . '&title=' . $title);
+		form::button('Delete Page', 'nodedel.php?page=' . $page);
 	}
 	if (strchr($buttons, 'A')) {
 		form::button('Add Page', 'nodeadd.php');

@@ -1,62 +1,70 @@
 <?php
 
 include 'init.php';
-
 $page = $_GET['page'] ?? FALSE;
-$title = $_GET['title'] ?? FALSE;
+$action = $_POST['s1'] ?? FALSE;
 
-if (!$page && !$title) {
-
-	// shouldn't happen
-	if (count($_POST) == 0) {
-		emsg('F', 'Unexplainable error');
-		header('Location: ' . $base_url . 'index.php');
+if (!$page) {
+	if (!$action) {
+		// random call to this script
+		header('Location: index.php');
 		exit();
 	}
-
-	// POST response
-	$pkb2->update_node($_POST);
-
-	header('Location: ' . $base_url . 'index.php');
-	exit();
+	else {
+		// confirmed edit
+		$pkb3->update_node($_POST);
+		header('Location: ' . 'index.php');
+		exit();
+	}
 }
 else {
+	// show the page and confirm button
+	$title = $pkb3->get_title_from_filename(pathinfo($page, PATHINFO_FILENAME));
+	$sidebar = $pkb3->parent_sidebar($page);
+	$buttons = 'I';
 
-	$content = $pkb2->get_file($page . $cfg['suffix']);
+	$extensions = explode(';', $cfg['extensions']);
+	$ext_options = [];
+	foreach ($extensions as $ext) {
+		$ext_options[] = ['lbl' => $ext, 'val' => $ext];
+	}
+
+	$extension = pathinfo($page, PATHINFO_EXTENSION);
+
 	$fields = [
+		'page' => [
+			'name' => 'page',
+			'type' => 'hidden',
+			'value' => $page
+		],
 		'newtitle' => [
 			'name' => 'newtitle',
 			'type' => 'text',
 			'size' => 50,
 			'maxlength' => 50
 		],
-		'title' => [
-			'name' => 'title',
-			'type' => 'hidden',
-			'value' => $title
-		],
-		'page' => [
-			'name' => 'page',
-			'type' => 'hidden',
-			'value' => $page
+		'extension' => [
+			'name' => 'extension',
+			'type' => 'select',
+			'options' => $ext_options
 		],
 		'content' => [
 			'name' => 'content',
 			'type' => 'textarea',
 			'rows' => 50,
 			'cols' => 75
-		],
+		],		
 		's1' => [
 			'name' => 's1',
 			'type' => 'submit',
-			'value' => 'Update'
+			'value' => 'Save Edits'
 		]
 	];
 
 	$form = new form($fields);
-
-	$buttons = 'RI';
+	$content = file_get_contents($page);
 }
 
 $view_file = 'views/nodeedt.view.php';
 include 'view.php';
+

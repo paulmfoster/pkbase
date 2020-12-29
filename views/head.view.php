@@ -20,14 +20,14 @@
 
 	<div id="locator">
 <?php if (!empty($page)): ?>
-<?php echo '<div id="locator-text">'. $page . $cfg['suffix'] . '</div>'; ?>
+<?php echo '<div id="locator-text">'. $page . '</div>'; ?>
 <?php endif; ?>
 <?php show_buttons($buttons, $page, $title); ?>
 
 	</div> <!-- locator -->
 											
 	<div id="leftbar" >							
-		<?php echo $pkb2->show_index(); ?>
+		<?php echo $sidebar; ?>
 	</div>
 			
 	<div id="main">	

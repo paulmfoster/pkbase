@@ -7,7 +7,7 @@ $delete = $_POST['s2'] ?? FALSE;
 
 if (!$add && !$delete) {
 	
-	$dirs = $pkb2->get_dirs();
+	$dirs = $pkb3->get_dirs();
 	$dirs_options = [];
 	foreach ($dirs as $dir) {
 		$dirs_options[] = ['lbl' => $dir, 'val' => $dir];
@@ -45,17 +45,18 @@ if (!$add && !$delete) {
 	$form = new form($fields);
 }
 elseif ($add) {
-	$pkb2->add_topic($_POST['parent'], $_POST['newtopic']);
+	$pkb3->add_topic($_POST['parent'], $_POST['newtopic']);
 	header('Location: ' . 'index.php');
 	exit();
 
 }
 elseif ($delete) {
-	$pkb2->delete_topic($_POST['delete']);
+	$pkb3->delete_topic($_POST['delete']);
 	header('Location: ' . 'index.php');
 	exit();
 }
 
+$sidebar = $pkb3->get_sidebar($cfg['content_dir']);
 $buttons = '';
 $page = '';
 $title = 'Topics';
