@@ -184,3 +184,11 @@ button[type="button"]:hover {
 	color: #86001a;
 }
 
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+table, td {
+	padding: 5px;
+}
