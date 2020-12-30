@@ -10,10 +10,10 @@ if (is_null($search_for)) {
 	exit();
 }
 
-$results = $pkb2->get_search_results($search_for);
-$numfiles = count($results);
+$sidebar = $pkb3->get_sidebar($cfg['content_dir']);
+$results = $pkb3->get_search_results($search_for);
 
-$buttons = 'RIA';
+$buttons = 'A';
 $page = '';
 $title = 'Search Results';
 

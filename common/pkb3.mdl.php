@@ -10,6 +10,7 @@ class pkb3
 		$this->cdl = strlen($this->content_dir);
 		$this->tree = [];
 		$this->directories = [];
+		$this->results = [];
 	}
 
 	/**
@@ -97,7 +98,7 @@ class pkb3
 	 * @return string A link to the directory.
 	 */
 
-	function directory_link($path)
+	private function directory_link($path)
 	{
 		return '<a class="dirlink" href="index.php?tree=' . $path . '">' . $this->get_title_from_filename(pathinfo($path, PATHINFO_FILENAME)) . ' ></a>' . PHP_EOL;
 	}
@@ -112,7 +113,7 @@ class pkb3
 	 * @return string A link to the file
 	 */
 
-	function file_link($path)
+	private function file_link($path)
 	{
 		return '<a class="filelink" href="show.php?page=' . $path . '">' . $this->get_title_from_filename(pathinfo($path, PATHINFO_FILENAME)) . '</a>' . PHP_EOL;
 	}
@@ -350,9 +351,90 @@ class pkb3
 		emsg('S', 'Topic and all children deleted');
 	}
 
+	/**
+	 * search_file()
+	 *
+	 * @param string $file The file in which to search
+	 * @param string $search_for That for which to search
+	 *
+	 * @return boolean Did we find it?
+	 */
+
+	private function search_file($file, $search_for)
+	{
+		$matched = FALSE;
+
+		if (file_exists($file)) {
+			$content = file_get_contents($file);
+			if ($content !== FALSE) {
+				// check to see if this is a regexp
+				if (strpos($search_for, '/') === 0) {
+					// tests for match; user used regexp for search
+					$found = preg_match($search_for, $content);
+					// found a file
+					if ($found !== 0 && $found !== FALSE) {
+						$matched = TRUE;
+					}
+				}
+				else {
+					// search case-insensitive in the file
+					$found = stripos($content, $search_for);
+					if ($found !== FALSE) {
+						$matched = TRUE;
+					}
+				}
+			}
+		}
+
+		return $matched;
+	}
+
+	/**
+	 * search_dir()
+	 *
+	 * Search directory for files with content matching the search
+	 * criteria. THIS FUNCTION IS RECURSIVE. This function updates the
+	 * "results" member array.
+	 *
+	 * @param string $dir Directory to search in
+	 * @param string $search_for Term to find
+	 *
+	 */ 
+
+	private function search_dir($dir, $search_for)
+	{
+		foreach ($dir as $branch => $twig) {
+			if (is_array($twig)) {
+				// dive into the directory
+				$this->search_dir($twig, $search_for);
+			}
+			elseif ($this->search_file($twig, $search_for)) {
+				$this->results[] = ['filename' => $twig, 'title' => $this->get_title_from_filename(pathinfo($twig, PATHINFO_FILENAME))];
+			}
+		}
+	}
+
+	/**
+	 * get_search_results()
+	 *
+	 * Search the "tree" member for files which match the passed search
+	 * term.
+	 *
+	 * @param string $search_for The search term
+	 *
+	 * @return array The list of files which match
+	 *
+	 */
+
+	function get_search_results($search_for)
+	{
+		$this->search_dir($this->tree, $search_for);
+		return $this->results;
+	}
+
 	function version()
 	{
-		return 3.0;
+		return 3.2;
 	}
 }
 

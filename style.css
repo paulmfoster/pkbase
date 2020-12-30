@@ -130,6 +130,7 @@ blockquote {
 	border-width: 4px 0 0 0;
 	border-style: solid;
 	border-color: #86001a;
+	margin: 20px 0 0 0;
 }
 
 .failure-message {
