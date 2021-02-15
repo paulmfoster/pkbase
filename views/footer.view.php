@@ -5,7 +5,7 @@
 <div id="footer">
 	
 		<p>			
-		PKBase v<?php echo $pkb3->version(); ?> &copy; <?php echo date('Y'); ?> Paul M. Foster |
+		PKBase v<?php echo $pkb->version(); ?> &copy; <?php echo date('Y'); ?> Paul M. Foster |
 		<a href="#top">Top</a> 
 		</p>		
 	

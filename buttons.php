@@ -4,7 +4,7 @@ function show_buttons($buttons, $page = '', $title = '')
 {
 	echo '<div id="locator-buttons">' . PHP_EOL;
 
-	form::button('Help', 'help.php');
+	form::button('Help', 'index.php');
 
 	if (strchr($buttons, 'T')) {
 		form::button('Topics', 'topics.php');

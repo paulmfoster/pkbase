@@ -1,6 +1,7 @@
 body {
 	width: 75%;
 	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 1em;
 }
 
 /**********
@@ -67,6 +68,15 @@ body {
 	float: right;
 }
 
+#locator-buttons button {
+	border-radius: 10px;
+	color: #86001a;
+}
+
+#locator-buttons button:hover {
+	color: blue;
+}
+
 #leftbar {
 	float: left;
 	display: block;
@@ -106,8 +116,10 @@ pre {
 }
 
 input[type="submit"] {
-    background-color: #86001a;
-    color: white;
+    /* background-color: #86001a; */
+    /* color: white; */
+	color: #86001a;
+	border-radius: 10px;
     border: 1px solid black;
     padding: 4px;
     margin-top: 2px;
@@ -117,8 +129,13 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: white;
-    color: #86001a;
+    /* background-color: white; */
+    /* color: #86001a; */
+	color: blue;
+}
+
+input, select, textarea, button {
+	font-size: 1em;
 }
 
 blockquote {
@@ -171,18 +188,22 @@ a:hover {
 }
 
 button[type="button"] {
-	background-color: #86001a;
-	color: white;
+	/* background-color: #86001a; */
+	/* color: white; */
+	color: #86001a;
     border: 1px solid black;
     padding: 4px;
 	margin: 2px 0px 2px 0px;
     font-weight: bold;
     cursor: pointer;
+	font-size: 1em;
+	border-radius: 10px;
 }
 
 button[type="button"]:hover {
-	background-color: white;
-	color: #86001a;
+	/* background-color: white; */
+	/* color: #86001a; */
+	color: blue;
 }
 
 table, th, td {
@@ -192,4 +213,9 @@ table, th, td {
 
 table, td {
 	padding: 5px;
+}
+
+form table, form th, form td {
+	border: none;
+	border-collapse: none;
 }

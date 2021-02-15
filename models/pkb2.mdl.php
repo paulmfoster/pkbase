@@ -574,6 +574,8 @@ class pkb2
 		];
 
 		$this->db->insert('tree', $rec);
+
+		// must do this to update the TOC file
 		$this->fetch_records();
 		$this->make_tree();	
 		$this->rewrite_toc();
@@ -613,6 +615,11 @@ class pkb2
 		unlink($filename);
 
 		$this->db->delete('tree', "name = '$page'");
+
+		// must do this to update the TOC file
+		$this->fetch_records();
+		$this->make_tree();	
+		$this->rewrite_toc();
 
 		emsg('S', 'Page successfully deleted');
 	}

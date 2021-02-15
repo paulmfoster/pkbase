@@ -51,19 +51,12 @@ else {
 }
 $base_url = sprintf("%s%s/%s", $protocol, $http_host, $app_subdir);
 
-$common_dir = 'common/';
-
-include $common_dir . 'errors.inc.php';
-include $common_dir . 'messages.inc.php';
-include $common_dir . 'form.lib.php';
-include $common_dir . 'pkb3.mdl.php';
-// include $common_dir . 'Parsedown.php';
-// include $common_dir . 'database.lib.php';
+include $cfg['incdir'] . 'errors.inc.php';
+include $cfg['incdir'] . 'messages.inc.php';
+include $cfg['libdir'] . 'form.lib.php';
+include $cfg['modeldir'] . 'pkb4.mdl.php';
 
 include 'buttons.php';
 
-// $db = new database($cfg);
-
-$pkb3 = new pkb3();
-// $pd = new Parsedown();
+$pkb = new pkb4();
 

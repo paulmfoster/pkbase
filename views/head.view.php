@@ -2,7 +2,7 @@
 <head>
 <title><?php echo $title; ?></title>
 <link rel="shortcut icon" href="favicon.ico" >
-<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="style.css?v=<?php echo date('His'); ?>" />
 </head>
 <body>
 	<a name="top"></a>	

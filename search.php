@@ -10,14 +10,14 @@ if (is_null($search_for)) {
 	exit();
 }
 
-$sidebar = $pkb3->get_sidebar($cfg['content_dir']);
-$results = $pkb3->get_search_results($search_for);
+$sidebar = $pkb->get_sidebar($cfg['content_dir']);
+$results = $pkb->get_search_results($search_for);
 
 $buttons = 'A';
 $page = '';
 $title = 'Search Results';
 
-$view_file = 'views/search.view.php';
+$view_file = $cfg['viewdir'] . 'search.view.php';
 
 include 'view.php';
 

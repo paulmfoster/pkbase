@@ -2,18 +2,19 @@
 
 include 'init.php';
 
-$page = $_GET['page'];
+$page = $_GET['page'] ?? NULL;
+if (is_null($page)) {
+	header('Location: index.php');
+	exit();
+}
 
-$title = $pkb3->get_title_from_filename(pathinfo($page, PATHINFO_FILENAME));
+$title = $pkb->get_title($page);
 
-$sidebar = $pkb3->parent_sidebar($page);
+$sidebar = $pkb->get_sidebar($page);
 $buttons = 'TEDA';
 
-$content = $pkb3->get_content($page);
-// $content = file_get_contents($page);
+$content = $pkb->get_content($page);
 
-// $content = $pd->text($text);
-
-$view_file = 'views/show.view.php';
+$view_file = $cfg['viewdir'] . 'show.view.php';
 include 'view.php';
 

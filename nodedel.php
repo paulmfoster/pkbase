@@ -13,15 +13,15 @@ if (!$page) {
 	}
 	else {
 		// confirmed deletion
-		$ekb3->delete_node($_POST['page']);
+		$pkb->delete_node($_POST['page']);
 		header('Location: ' . 'index.php');
 		exit();
 	}
 }
 else {
 	// show the page and confirm button
-	$title = $pkb3->get_title_from_filename(pathinfo($page, PATHINFO_FILENAME));
-	$sidebar = $pkb3->parent_sidebar($page);
+	$title = $pkb->get_title($page);
+	$sidebar = $pkb->get_sidebar($page);
 	$buttons = 'I';
 
 	$fields = [
@@ -38,10 +38,10 @@ else {
 	];
 
 	$form = new form($fields);
-	$content = $pkb3->get_content($page);
+	$content = $pkb->get_content($page);
 }
 
-$view_file = 'views/nodedel.view.php';
+$view_file = $cfg['viewdir'] . 'nodedel.view.php';
 
 include 'view.php';
 

@@ -12,15 +12,15 @@ if (!$page) {
 	}
 	else {
 		// confirmed edit
-		$pkb3->update_node($_POST);
+		$pkb->update_node($_POST);
 		header('Location: ' . 'index.php');
 		exit();
 	}
 }
 else {
 	// show the page and confirm button
-	$title = $pkb3->get_title_from_filename(pathinfo($page, PATHINFO_FILENAME));
-	$sidebar = $pkb3->parent_sidebar($page);
+	$sidebar = $pkb->get_sidebar($page);
+	$title = $pkb->get_title($page);
 	$buttons = 'I';
 
 	$extensions = explode(';', $cfg['extensions']);
@@ -30,6 +30,7 @@ else {
 	}
 
 	$extension = pathinfo($page, PATHINFO_EXTENSION);
+	$content = file_get_contents($page);
 
 	$fields = [
 		'page' => [
@@ -40,19 +41,25 @@ else {
 		'newtitle' => [
 			'name' => 'newtitle',
 			'type' => 'text',
+			'label' => 'New Title',
+			'value' => $title,
 			'size' => 50,
 			'maxlength' => 50
 		],
 		'extension' => [
 			'name' => 'extension',
 			'type' => 'select',
+			'label' => 'Extension',
+			'value' => $extension,
 			'options' => $ext_options
 		],
 		'content' => [
 			'name' => 'content',
 			'type' => 'textarea',
 			'rows' => 50,
-			'cols' => 75
+			'cols' => 75,
+			'label' => 'Content',
+			'value' => $content
 		],		
 		's1' => [
 			'name' => 's1',
@@ -62,9 +69,8 @@ else {
 	];
 
 	$form = new form($fields);
-	$content = file_get_contents($page);
 }
 
-$view_file = 'views/nodeedt.view.php';
+$view_file = $cfg['viewdir'] . 'nodeedt.view.php';
 include 'view.php';
 

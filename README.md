@@ -60,12 +60,11 @@ Adding a file requires you to select a "topic" or directory in
 which to put the file. It also asks you for an "extension" for
 the file. This can be `.md`, `.otl`, `.txt` or `.html`.
 
-This software will display **PDF** files if you have them in one
-of your subdirectories, but you cannot edit or add them here.
-
 There is also a "Topics" button on the upper right. This allows
 you to create a new subdirectory. For this, you must pick the
 directory this subdirectory belongs in.
+
+## File And Directory Names
 
 For files and directories, you may use any characters you like. I
 typically use capitalized phrases which I'll be able to easily
@@ -77,10 +76,49 @@ spaces again, and individual words are capitalized ("title
 case"). You are advised to follow these conventions if you create
 files in your editor. I haven't tested the results if you don't.
 
+There is also a way to specify a title separate from the name of your
+file. To do so, you must add something like the following to the first
+line of your file:
+
+```
+[title']:- "My Title"
+```
+
+It must be done exactly this way. The following rules apply:
+
+1. The metadata must appear on the first line of the file
+2. It must start at the first position on the line.
+3. The word "title" must appear in square brackets.
+4. Immediately following the part above should be a colon, followed
+by a dash/hyphen, followed by a single space.
+5. The title you wish should be enclosed in double quotes.
+
+## Search
+
 There is a "search" area in the upper right corner of the page.
 You may enter any search term there and hit the button. Documents
 which match your search will be listed, and you may click on one
-to see it.
+to see it. This searches your entire catalog of files.
+
+## Links To Other Documents
+
+There are times when you may want to include an image or PDF or somesuch
+in a document. You don't want to put these in your main content
+directory; they're likely to muck things up. Instead, you may include
+such files in subdirectories where your software lives. In particular,
+I've created `images` and `documents` directories for this. In your
+document, you would include a link to a file in one of these
+directories. In markdown, that would be something like:
+
+```
+[Some Random Image](images/random.jpg)
+```
+
+For HTML, it might look like this:
+
+```
+<a href="images/random.jpg">Some Random Image</a>
+```
 
 ## License
 
@@ -90,35 +128,20 @@ redistribute this software modified or unmodified to others, you
 are required to include your source code. The terms of your use
 are dictated by the GPLv2.
 
-## Technical Details
+## Hacking/Technical Details
 
-This application is written in PHP. It uses the **Parsedown**
-library to parse content in "markdown" format. It assumes
-markdown files have a `.md` extension. Markdown allows you to
-specify bold and italic text, various levels of headline, tables,
-and a variety of other types of formatting. It will also display Vim
-"outline" files with an `.otl` extension. It will also display
-files which have a `.txt` extension (plain text files). For the
-latter two, it will maintain the formatting in the file. You may
-also serve up `.html` files, which will be displayed as is.
-
-## Changes in Paul's Knowledge Base Version 3
-
-Removes the limitation of only using markdown files. Now you may
-use Vim outline files and straight text files, as well as
-straight HTML files. You may also view PDF files, but there is no
-provision for creating or editing them.
-
-Removes the database portion of the software. This version scans
-your content directory on page loads, and creates its own
-in-memory index or your files and directories. In version 2,
-changes made to the underlying files could force a lengthy
-recreation of the database.
-
-Eliminates the Table of Contents file used in Vimwiki to manage
-the whole collection of files.
-
-Changes the left hand index to show the current level's files and
-directories. You may click on a directory to see the files in it.
-This vastly simplified index processing.
+This application is written in PHP, and uses a model-view-controller
+paradigm of my own design. It has no front controller. Instead, there
+are page controllers for each landing page, in the root directory for
+this project. The views are in the `views/` directory. The model is in
+the `common/` directory. It uses the **Parsedown** library to parse
+content in "markdown" format. It assumes markdown files have a `.md`
+extension. Markdown allows you to specify bold and italic text, various
+levels of headline, tables, and a variety of other types of formatting.
+It will also display Vim "outline" files with an `.otl` extension. It
+will also display files which have a `.txt` extension (plain text
+files). For the latter two, it will maintain the formatting in the file.
+You may also serve up `.html` files, which will be displayed as is.
+Styling is governed by the `style.css` file. I've styled things the way
+I like them. You're free to change the styling.
 
