@@ -15,6 +15,14 @@ class pkb4
 	}
 
 	// fetches metadata (title) from the file specified
+	/**
+	 * Fetch metadata (title) from the file specified
+	 *
+	 * @param string The filename to scan
+	 * @return string The filename
+	 *
+	 */
+
 	function fetch_metadata($file)
 	{
 		$title = '';
@@ -31,7 +39,18 @@ class pkb4
 		return $title;
 	}
 
-	// scan a directory and build the tree array, sans titles
+	/**
+	 * Scan a directory and build a tree array. 
+	 *
+	 * A tree array is a list
+	 * of filenames, directory flags, titles, and timestamps. Check each
+	 * file for title metadata. If present, use that as the title.
+	 * Otherwise, derive it from the file name.
+	 *
+	 * @param string The directory to scan
+	 * @return array Sum of timestamps, tree array
+	 */
+
 	function scan_dir($dir)
 	{
 		$tree = [];
@@ -70,6 +89,14 @@ class pkb4
 		return [$sum, $tree];
 	}
 
+	/**
+	 * Sort an array of tree records alphabetically
+	 *
+	 * @param array Tree array
+	 * @param array Another tree array
+	 * @return integer -1, 0, 1 based on sort order
+	 */
+
 	static function sort_titles($a, $b)
 	{
 		if ($a['title'] < $b['title']) {
@@ -82,6 +109,17 @@ class pkb4
 			return 0;
 		}
 	}
+
+	/**
+	 * Return the string which represents the sidebar
+	 *
+	 * Checks the passed directory for a map file. If not present, it
+	 * builds it by scanning the directory and building one. It calls
+	 * other routines for this.
+	 *
+	 * @param string The directory to show in the sidebar
+	 * @return string The HTML sidebar
+	 */
 
 	function get_sidebar($dir)
 	{
@@ -125,7 +163,13 @@ class pkb4
 		return $str;
 	}
 
-	// eats the map file and populates the tree member
+	/**
+	 * Read the map file.
+	 *
+	 * @param string The directory to search for the map file
+	 * @return array Sum of timestamps and tree array
+	 */
+
 	function read_map($dir)
 	{
 		$tree = [];
@@ -148,6 +192,13 @@ class pkb4
 		return [$sum, $tree];
 	}
 
+	/**
+	 * Write the map file from a list of the files in a directory.
+	 *
+	 * @param string The directory to write the map file to
+	 * @param array List of directories/files
+	 */
+
 	private function write_map($dir, $tree)
 	{
 		$str = '';
@@ -162,6 +213,13 @@ class pkb4
 		}
 		file_put_contents($dir . DIRECTORY_SEPARATOR . '.map', $str);
 	}
+
+	/**
+	 * Get the title of a file from the tree
+	 *
+	 * @param string The filename
+	 * @return string The title if found, or '' if not
+	 */
 
 	function get_title($page)
 	{
@@ -200,6 +258,16 @@ class pkb4
 		return $str;
 	}
 
+	/**
+	 * Get the content from a page and interpret it as needed.
+	 *
+	 * Content is handled differently, depending on the type of file. In
+	 * particular, markdown files are converted to HTML.
+	 *
+	 * @param string The filename to show
+	 * @return string The content, possibly translated
+	 */
+
 	function get_content($page)
 	{
 		global $cfg;
@@ -237,27 +305,14 @@ class pkb4
 		}
 	}
 
-	function only_dirs($path)
-	{
-		$tree = [];
-
-		$files = scandir($path);
-		sort($files, SORT_STRING | SORT_FLAG_CASE);
-
-		foreach ($files as $file) {
-			if ($file == '..' || $file == '.' || (strpos($file, '.') === 0)) {
-				continue;
-			}
-
-			if (is_dir($path . '/' . $file)) {
-				$tree[] = $path . '/' . $file;
-				$this->file_tree($path . '/' . $file);
-			}
-
-		}
-
-		return $tree;
-	}
+	/**
+	 * Get the directories under the path.
+	 *
+	 * Recursive function called by get_dirs().
+	 *
+	 * @param string The path to scan
+	 *
+	 */
 
 	private function dirs($path)
 	{
@@ -292,12 +347,10 @@ class pkb4
 	}
 
 	/**
-	 * update_title()
-	 *
-	 * Change the title of a file, which means changing the name
-	 * of the file as well.
+	 * Create a filename from a title.
 	 *
 	 * @param array The POST array
+	 * @return string The filename
 	 *
 	 */
 
@@ -317,6 +370,13 @@ class pkb4
 		return $filename;
 	}
 
+	/**
+	 * Add a content page
+	 *
+	 * @param array POST array
+	 * @return string The filename
+	 */
+
 	function add_node($post)
 	{
 		$basename = $this->create_filename($post['title']);
@@ -331,11 +391,23 @@ class pkb4
 		return $filename;
 	}
 
+	/**
+	 * Delete a content page
+	 *
+	 * @param string The filename to delete
+	 */
+
 	function delete_node($page)
 	{
 		unlink($page);
 		emsg('S', 'Page successfully deleted');
 	}
+
+	/**
+	 * Make changes to a content file.
+	 *
+	 * @param array The POST array
+	 */
 
 	function update_node($post)
 	{
@@ -361,6 +433,13 @@ class pkb4
 		emsg('S', 'Page successfully updated');
 	}
 
+	/**
+	 * Create a new directory
+	 *
+	 * @param string Parent of the directory to create
+	 * @param string The directory to create
+	 */
+
 	function add_topic($parent, $dir)
 	{
 		// massage directory
@@ -372,6 +451,12 @@ class pkb4
 
 		emsg('S', 'Topic successfully added.');
 	}
+
+	/**
+	 * Delete a directory (AND ITS FILES)
+	 *
+	 * @param string The directory to delete
+	 */
 
 	function delete_topic($dir)
 	{
@@ -424,67 +509,6 @@ class pkb4
 		}
 
 		return $matched;
-	}
-
-	// FIXME may be obsolete
-	/**
-	 * Search directory for files with specified content.
-	 *
-	 * THIS FUNCTION IS RECURSIVE. This function updates the
-	 * "results" member array.
-	 *
-	 * @param string $dir Directory to search in
-	 * @param string $search_for Term to find
-	 *
-	 */ 
-
-	private function search_dir($dir, $search_for)
-	{
-		foreach ($dir as $branch => $twig) { // fixme WARNING: Invalid argument supplied for foreach()
-			if (is_array($twig)) {
-				// dive into the directory
-				$this->search_dir($twig, $search_for);
-			}
-			elseif ($this->search_file($twig, $search_for)) {
-				$this->results[] = ['filename' => $twig, 'title' => $this->get_title_from_filename(pathinfo($twig, PATHINFO_FILENAME))];
-			}
-		}
-	}
-
-	// FIXME may be obsolete
-	/**
-	 * file_tree()
-	 *
-	 * Takes a directory and recursively grabs the files and directories
-	 * under it. Directories point to arrays of files. Does not return a
-	 * value. Instead, it sets the class member $tree.
-	 *
-	 * @param string $path The path to search
-	 *
-	 */
-
-	private function file_tree($path)
-	{
-		$tree = [];
-
-		$files = scandir($path);
-		sort($files, SORT_STRING | SORT_FLAG_CASE);
-
-		foreach ($files as $file) {
-			if ($file == '..' || $file == '.' || (strpos($file, '.') === 0)) {
-				continue;
-			}
-
-			if (is_dir($path . '/' . $file)) {
-				$tree[$path . '/' . $file] = $this->file_tree($path . '/' . $file);
-			}
-			else {
-				$tree[] = $path . '/' . $file;
-			}
-
-		}
-
-		return $tree;
 	}
 
 	/**
