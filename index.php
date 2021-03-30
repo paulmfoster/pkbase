@@ -19,5 +19,11 @@ $pd = new Parsedown;
 $readme = file_get_contents('README.md');
 $content = $pd->text($readme);
 
-$view_file = $cfg['viewdir'] . 'index.view.php';
-include 'view.php';
+$d = [
+	'sidebar' => $sidebar,
+	'buttons' => 'TA',
+	'page' => '',
+	'title' => 'Welcome',
+	'content' => $content
+];
+view('Welcome', $d, '', 'index');
