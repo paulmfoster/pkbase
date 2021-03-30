@@ -247,21 +247,35 @@ class form
 
 		$str .= '>' . PHP_EOL;
 
+		// options loop
 		foreach ($opts as $option) {
 			$str .= '<option ';
 			$str .= $this->key_value('value', $option['val']);
 
+			// determine any default value
+			// default value at runtime takes precedence over default
+			// value set on field creation
 			if (!is_null($select_value)) {
-				if (!is_array($select_value)) {
-					if ($option['val'] == $select_value) {
+				$sval = $select_value;
+			}
+			elseif (isset($fld['value'])) {
+				$sval = $fld['value'];
+			}
+			else {
+				$sval = NULL;
+			}
+			
+			if (!is_null($sval)) {
+				if (!is_array($sval)) {
+					if ($option['val'] == $sval) {
 						$str .= 'selected="selected" ';
 					}
 				}
 				else {
 
-					$max = count($select_value);
+					$max = count($sval);
 					for ($i = 0; $i < $max; $i++) {
-						if ($option['val'] == $select_value[$i]) {
+						if ($option['val'] == $sval[$i]) {
 							$str .= 'selected="selected"';
 							break;
 						}
@@ -274,6 +288,7 @@ class form
 			$str .= $option['lbl'];
 			$str .= '</option>' . PHP_EOL;
 		}
+
 		$str .= '</select>' . PHP_EOL;
 		
 		echo $str;
@@ -476,6 +491,10 @@ class form
 		if (!is_null($content)) {
 			$str .= $content;
 		}
+		elseif (isset($parms['value'])) {
+			$str .= $content;
+		}
+
 		$str .= '</textarea>' . PHP_EOL;
 
 		echo $str;
@@ -567,9 +586,6 @@ class form
 
 			if (isset($values[$name])) {
 				$this->{$f['type']}($name, $values[$name]);
-			}
-			elseif (isset($f['value'])) {
-				$this->{$f['type']}($name, $f['value']);
 			}
 			else {
 				$this->{$f['type']}($name);

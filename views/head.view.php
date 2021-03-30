@@ -6,6 +6,7 @@
 </head>
 <body>
 	<a name="top"></a>	
+<div class="container">
 	<div id="header">				
 			
 	<div id="site-title"><?php echo $cfg['site_title']; ?></div>	
@@ -22,11 +23,11 @@
 <?php if (!empty($page)): ?>
 <?php echo '<div id="locator-text">'. $page . '</div>'; ?>
 <?php endif; ?>
-<?php show_buttons($buttons, $page, $title); ?>
 
+<?php show_buttons($buttons, $page, $title); ?>
 	</div> <!-- locator -->
 											
-	<div id="leftbar" >							
+	<div id="left-nav" >							
 		<?php echo $sidebar; ?>
 	</div>
 			

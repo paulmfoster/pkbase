@@ -8,9 +8,9 @@ if (is_null($page)) {
 	exit();
 }
 
+$sidebar = $pkb->get_sidebar($page);
 $title = $pkb->get_title($page);
 
-$sidebar = $pkb->get_sidebar($page);
 $buttons = 'TEDA';
 
 $content = $pkb->get_content($page);

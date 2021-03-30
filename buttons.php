@@ -19,5 +19,5 @@ function show_buttons($buttons, $page = '', $title = '')
 		form::button('Add Page', 'nodeadd.php');
 	}
 
-	echo '</div> <!-- locator-buttons -->' . PHP_EOL;
+	echo PHP_EOL . '</div> <!-- locator-buttons -->' . PHP_EOL;
 }

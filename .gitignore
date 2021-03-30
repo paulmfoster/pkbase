@@ -1,0 +1,4 @@
+*.sw*
+DEVNOTES.md
+images/*
+Session.vim

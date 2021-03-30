@@ -10,6 +10,7 @@
 		</p>		
 	
 </div>
+</div> <!-- container -->
 <!-- footer ends here -->
 
 </body>

@@ -1,23 +1,5 @@
 <?php
 
-function get_or_post($parm)
-{
-	if (isset($_GET[$parm])) {
-		$method = 'G';
-		$retval = $_GET[$parm];
-	}
-	elseif (isset($_POST[$parm])) {
-		$method = 'P';
-		$retval = $_POST[$parm];
-	}
-	else {
-		$method = 'X';
-		$retval = NULL;
-	}
-
-	return [$method, $retval];
-}
-
 function instrument($label, $var)
 {
 	echo $label;
