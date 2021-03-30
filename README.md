@@ -81,7 +81,7 @@ file. To do so, you must add something like the following to the first
 line of your file:
 
 ```
-[title']:- "My Title"
+[title]:- "My Title"
 ```
 
 It must be done exactly this way. The following rules apply:
@@ -126,7 +126,8 @@ You may use this software any way you like, and may modify it if
 you prefer. All the code is included. If you make changes and
 redistribute this software modified or unmodified to others, you
 are required to include your source code. The terms of your use
-are dictated by the GPLv2.
+are dictated by the GPLv2. If you do modify it, I'd like to be notified,
+but you don't have to.
 
 ## Hacking/Technical Details
 
@@ -134,7 +135,7 @@ This application is written in PHP, and uses a model-view-controller
 paradigm of my own design. It has no front controller. Instead, there
 are page controllers for each landing page, in the root directory for
 this project. The views are in the `views/` directory. The model is in
-the `common/` directory. It uses the **Parsedown** library to parse
+the `models/` directory. It uses the **Parsedown** library to parse
 content in "markdown" format. It assumes markdown files have a `.md`
 extension. Markdown allows you to specify bold and italic text, various
 levels of headline, tables, and a variety of other types of formatting.
