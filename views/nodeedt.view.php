@@ -1,6 +1,5 @@
-<form action="nodeedt.php" method="post">
+<form action="<?php echo $return; ?>" method="post">
 <table>
 <?php $form->show(); ?>
 </table>
 </form>
-<?php form::abandon('index.php'); ?>

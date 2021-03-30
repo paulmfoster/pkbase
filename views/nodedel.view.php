@@ -1,4 +1,4 @@
-<form action="nodedel.php" method="post">
+<form action="<?php echo $return; ?>" method="post">
 
 <h2>Are you SURE you want to delete this page?</h2>
 <?php $form->submit('s1'); ?>

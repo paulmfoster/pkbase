@@ -8,6 +8,64 @@ function instrument($label, $var)
 	echo '</pre>';
 }
 
+function redirect($url)
+{
+	header("Location: $url");
+	exit();
+}
+
+function model($name)
+{
+	global $cfg, $db;
+
+	$filename = $cfg['modeldir'] . $name . '.mdl.php';
+	if (!file_exists($filename)) {
+		die("Model $name doesn't exist!");
+	}
+	require_once($filename);
+	$obj = new $name($db);
+	return $obj;
+}
+
+function library($name)
+{
+	global $cfg;
+
+	$filename = $cfg['libdir'] . $name . '.lib.php';
+	if (!file_exists($filename)) {
+		die("Library $name doesn't exist!");
+	}
+	require_once($filename);
+	$obj = new $name();
+	return $obj;
+}
+
+
+function view($page_title, $data, $return, $view_file, $focus_field = '')
+{
+	global $cfg, $nav, $form;
+
+	extract($data);
+	include $cfg['viewdir'] . 'head.view.php';
+	include $cfg['viewdir'] . $view_file . '.view.php';
+	include $cfg['viewdir'] . 'footer.view.php';
+}
+
+function fork($varname, $method, $failurl)
+{
+	if ($method == 'P') {
+		$var = $_POST[$varname] ?? NULL;
+	}
+	elseif ($method == 'G') {
+		$var = $_GET[$varname] ?? NULL;
+	}
+	if (is_null($var)) {
+		header('Location: ' . $failurl);
+		exit;
+	}
+	return $var;
+}
+
 $cfg = parse_ini_file('config/config.ini');
 
 // 2592000 = 30 days
@@ -36,6 +94,7 @@ $base_url = sprintf("%s%s/%s", $protocol, $http_host, $app_subdir);
 include $cfg['incdir'] . 'errors.inc.php';
 include $cfg['incdir'] . 'messages.inc.php';
 include $cfg['libdir'] . 'form.lib.php';
+$form = new form;
 include $cfg['modeldir'] . 'pkb4.mdl.php';
 
 include 'buttons.php';

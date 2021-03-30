@@ -1,7 +1,6 @@
-<form method="post" action="nodeadd.php">
+<form method="post" action="<?php echo $return; ?>">
 <table>
 <?php $form->show(); ?>
 <br/>
 </table>
 </form>
-<?php form::abandon('index.php'); ?>

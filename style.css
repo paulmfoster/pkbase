@@ -91,6 +91,7 @@ body {
 #locator-buttons button {
 	border-radius: 10px;
 	color: #86001a;
+	font-weight: bold;
 }
 
 #locator-buttons button:hover {
