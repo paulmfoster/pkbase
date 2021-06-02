@@ -281,11 +281,9 @@ class pkb4
 			return $text;
 		}
 		elseif ($ext == 'otl') {
-			$text = file_get_contents($page);
-			// mimic indentations in original file
-			$text = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $text);
-			// mimic line endings in original file
-			$content = nl2br($text);
+			include $cfg['libdir'] . 'vimoutline.lib.php';
+			$votl = new vimoutline($page);
+			$content = $votl->parse();
 			return $content;
 		}
 		elseif ($ext == 'txt') {

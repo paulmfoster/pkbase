@@ -1,5 +1,5 @@
 
-		</div>	
+		</div><!-- main -->	
 
 <!-- footer starts here -->	
 <div id="footer">
@@ -9,7 +9,7 @@
 		<a href="#top">Top</a> 
 		</p>		
 	
-</div>
+</div> <!-- footer -->
 </div> <!-- container -->
 <!-- footer ends here -->
 
