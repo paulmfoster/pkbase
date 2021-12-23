@@ -19,7 +19,7 @@ server on my machine, and she can surf to my webserver from her machine.
 
 - A running web server you have access to.
 - PHP installed on your web server.
-- A place to house and edit your knowldege base files.
+- A place to house and edit your knowledge base files.
 
 ## Installation
 
@@ -49,49 +49,35 @@ You may click on any of these links to either view the file, or
 explore the contents of the directory.
 
 Typically, it's expected that you would manage your files in the
-editor of your choice. However, you can, instead, add, edit and
-delete files in this software. Towards the top on the right will
-be buttons which allow you to edit, delete and add files. Each
-takes you to a screen designed to handle that task. The operation
-is dead simple. After you've made changes, click the "confirm"
-button.
+editor of your choice. Prior versions of this software allowed for the user
+to add, edit and delete pages from the website. However, this
+functionality has been abandoned. This is not a "groupware" project. It is
+designed so that one person maintains the knowledge base, and others may
+use it.
 
-Adding a file requires you to select a "topic" or directory in
-which to put the file. It also asks you for an "extension" for
-the file. This can be `.md`, `.otl`, `.txt` or `.html`.
-
-There is also a "Topics" button on the upper right. This allows
-you to create a new subdirectory. For this, you must pick the
-directory this subdirectory belongs in.
+The software can parse markdown, HTML, text and vim outline files.
+Extensions must be `.md`, `.html`, `.txt` or `.otl`, respectively.
 
 ## File And Directory Names
 
-For files and directories, you may use any characters you like. I
-typically use capitalized phrases which I'll be able to easily
-recognize later. However, when the file or directory name is
-stored, any spaces will be turned into hyphens, and any
-non-alphanumeric characters will be removed. When the file or
-directory name is later displayed, The hyphens are turned into
-spaces again, and individual words are capitalized ("title
-case"). You are advised to follow these conventions if you create
-files in your editor. I haven't tested the results if you don't.
-
-There is also a way to specify a title separate from the name of your
-file. To do so, you must add something like the following to the first
-line of your file:
+Prior versions of this software offered a fair latitude in file and
+directory naming. This also has been abandoned. It's expected that
+filenames will consist of one or more words, initially capitalized, with
+underscores in between words. In creating titles for display (as in the
+sidebar), underscores will be replaced by spaces. "Titles" as they appear
+in the actual documents, should be written out in the actual documents at
+the beginning, using whatever method the particular file's markup
+specifies. For markdown files, this would be as follows:
 
 ```
-[title]:- "My Title"
+# My Title
 ```
 
-It must be done exactly this way. The following rules apply:
+For HTML files, it would be:
 
-1. The metadata must appear on the first line of the file
-2. It must start at the first position on the line.
-3. The word "title" must appear in square brackets.
-4. Immediately following the part above should be a colon, followed
-by a dash/hyphen, followed by a single space.
-5. The title you wish should be enclosed in double quotes.
+```
+<h1>My Title</h1>
+```
 
 ## Search
 
@@ -104,21 +90,9 @@ to see it. This searches your entire catalog of files.
 
 There are times when you may want to include an image or PDF or somesuch
 in a document. You don't want to put these in your main content
-directory; they're likely to muck things up. Instead, you may include
-such files in subdirectories where your software lives. In particular,
-I've created `images` and `documents` directories for this. In your
-document, you would include a link to a file in one of these
-directories. In markdown, that would be something like:
-
-```
-[Some Random Image](images/random.jpg)
-```
-
-For HTML, it might look like this:
-
-```
-<a href="images/random.jpg">Some Random Image</a>
-```
+directory; they're likely to muck things up. Instead, it's recommended you
+set up an "images" directory, put images there and link to them in your
+documents.
 
 ## License
 

@@ -6,7 +6,7 @@ body {
 
 .container {
 	display: grid;
-	grid-template-columns: 25% 75%;
+	grid-template-columns: 35% 65%;
 	grid-template-rows: 4;
 	grid-gap: 1em;
 }
@@ -46,6 +46,12 @@ body {
 
 
 #header form.searchform {
+	position: absolute;
+	top: 0; 
+	right: 0px;
+}
+
+#header form.help {
 	position: absolute;
 	top: 0; 
 	right: 0px;

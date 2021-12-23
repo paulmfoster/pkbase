@@ -171,8 +171,10 @@ class Parsedown
 
         foreach ($lines as $line)
         {
+
             if (chop($line) === '')
             {
+				// line was empty
                 if (isset($CurrentBlock))
                 {
                     $CurrentBlock['interrupted'] = (isset($CurrentBlock['interrupted'])
@@ -294,7 +296,7 @@ class Parsedown
 
                 $CurrentBlock['identified'] = true;
             }
-        }
+        } // for
 
         # ~
 

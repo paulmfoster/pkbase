@@ -14,7 +14,8 @@ class pkb4
 		$this->separator = '^';
 	}
 
-	// fetches metadata (title) from the file specified
+	// This function is OBSOLETE
+
 	/**
 	 * Fetch metadata (title) from the file specified
 	 *
@@ -70,10 +71,11 @@ class pkb4
 			}
 			else {
 				$tree[$i]['isdir'] = 'F';
-				$title = $this->fetch_metadata($dir . DIRECTORY_SEPARATOR . $files[$i]);
-				if (empty($title)) {
+				# $title = $this->fetch_metadata($dir . DIRECTORY_SEPARATOR . $files[$i]);
+				# if (empty($title)) {
 					$title = $this->get_title_from_filename($files[$i]);
-				}
+			
+				# }
 			}
 			
 			$tree[$i]['title'] = $title;
@@ -128,8 +130,9 @@ class pkb4
 			$dir = substr($dir, 0, strrpos($dir, DIRECTORY_SEPARATOR));
 		}
 
-		list($mapsum, $maptree) = $this->read_map($dir);
+		// list($mapsum, $maptree) = $this->read_map($dir);
 		list($scansum, $scantree) = $this->scan_dir($dir);
+		/*
 		if ($mapsum == 0 || ($mapsum != $scansum)) {
  			$this->write_map($dir, $scantree);
 			$this->tree = $scantree;
@@ -137,6 +140,8 @@ class pkb4
 		else {
 			$this->tree = $maptree;
 		}
+		 */
+		$this->tree = $scantree;
 
 		// sort based on title
 		usort($this->tree, ['pkb4', 'sort_titles']);
@@ -248,6 +253,7 @@ class pkb4
 	{
 		$pi = pathinfo($filename);
 		$filename = $pi['filename'];
+		/*
 		$words = explode('-', $filename);
 		// upcase each word
 		foreach ($words as $word) {
@@ -255,6 +261,8 @@ class pkb4
 		}
 		// recombine the words
 		$str = implode(' ', $components);
+		 */
+		$str = str_replace('_', ' ', $filename);
 		return $str;
 	}
 

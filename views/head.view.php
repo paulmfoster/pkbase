@@ -13,10 +13,12 @@
 	<div id="slogan"><?php echo $cfg['slogan']; ?></div> 
 		
 		<form method="post" id="searchform" class="searchform" action="search.php">
-			<p><input type="text" name="search_query" class="textbox" />
-  			<input type="submit" name="search" class="button" value="Search" /></p>
+			<p>
+			<input type="text" name="search_query" class="textbox" />
+			<input type="submit" name="search" class="button" value="Search" />
+			</p>
 		</form>
-			
+
 	</div> <!-- header -->	
 
 	<div id="locator">
@@ -24,7 +26,6 @@
 <?php echo '<div id="locator-text">'. $page . '</div>'; ?>
 <?php endif; ?>
 
-<?php show_buttons($buttons, $page, $title); ?>
 	</div> <!-- locator -->
 											
 	<div id="left-nav" >							
