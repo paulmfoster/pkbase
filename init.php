@@ -1,72 +1,37 @@
 <?php
 
-function instrument($label, $var)
-{
-	echo $label;
-	echo '<pre>';
-	print_r($var);
-	echo '</pre>';
+$cfgfile = 'config/config.ini';
+if (!file_exists($cfgfile)) {
+	copy('config/config.sample', 'config/config.ini');
 }
-
-function redirect($url)
-{
-	header("Location: $url");
-	exit();
-}
-
-function model($name)
-{
-	global $cfg, $db;
-
-	$filename = $cfg['modeldir'] . $name . '.mdl.php';
-	if (!file_exists($filename)) {
-		die("Model $name doesn't exist!");
-	}
-	require_once($filename);
-	$obj = new $name($db);
-	return $obj;
-}
-
-function library($name)
-{
-	global $cfg;
-
-	$filename = $cfg['libdir'] . $name . '.lib.php';
-	if (!file_exists($filename)) {
-		die("Library $name doesn't exist!");
-	}
-	require_once($filename);
-	$obj = new $name();
-	return $obj;
-}
-
-
-function view($page_title, $data, $return, $view_file, $focus_field = '')
-{
-	global $cfg, $nav, $form;
-
-	extract($data);
-	include $cfg['viewdir'] . 'head.view.php';
-	include $cfg['viewdir'] . $view_file . '.view.php';
-	include $cfg['viewdir'] . 'footer.view.php';
-}
-
-function fork($varname, $method, $failurl)
-{
-	if ($method == 'P') {
-		$var = $_POST[$varname] ?? NULL;
-	}
-	elseif ($method == 'G') {
-		$var = $_GET[$varname] ?? NULL;
-	}
-	if (is_null($var)) {
-		header('Location: ' . $failurl);
-		exit;
-	}
-	return $var;
-}
-
 $cfg = parse_ini_file('config/config.ini');
+
+/* =========== GROTTO CODE CHECK ============= */
+
+if (!file_exists($cfg['incdir']) || !file_exists($cfg['libdir'])) {
+	$message = <<< EOT
+
+This software relies on another package called "grotto", and I can't find
+it on your system. It should be available from where you got this software.
+Download it from there and install it, ideally located outside the tree for
+this software. Optionally, you may locate it within the tree for this
+software. In your main software, you should have a file called
+<code>config/config.ini</code>.  Look for the following two lines in it:
+
+incdir = "../grotto/"
+libdir = "../grotto/"
+
+Edit those lines to point to the the location where you downloaded the
+"grotto" package.
+
+EOT;
+	
+	die(nl2br($message));
+}
+
+/* ========== END GROTTO CODE CHECK =========== */
+
+include $cfg['incdir'] . 'misc.inc.php';
 
 // 2592000 = 30 days
 ini_set('session.gc_maxlifetime', 2592000);
@@ -75,29 +40,12 @@ session_set_cookie_params(2592000);
 session_name($cfg['session_name']);
 session_start();
 
-$protocol = 'http://';
-$http_host = $_SERVER['HTTP_HOST'];
-
-$base_dir = dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR;
-$base_dir_len = strlen($base_dir);
-$doc_root = $_SERVER['DOCUMENT_ROOT'];
-$doc_root_len = strlen($doc_root);
-
-if ($base_dir_len == $doc_root_len) {
-	$app_subdir = '';
-}
-else {
-	$app_subdir = substr($base_dir, strlen($_SERVER['DOCUMENT_ROOT']) + 1);
-}
-$base_url = sprintf("%s%s/%s", $protocol, $http_host, $app_subdir);
-
 include $cfg['incdir'] . 'errors.inc.php';
 include $cfg['incdir'] . 'messages.inc.php';
+
 include $cfg['libdir'] . 'form.lib.php';
 $form = new form;
 include $cfg['modeldir'] . 'pkb4.mdl.php';
-
-include 'buttons.php';
 
 $pkb = new pkb4();
 

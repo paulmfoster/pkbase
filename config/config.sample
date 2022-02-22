@@ -4,7 +4,6 @@ slogan = "All you need to know..."
 session_name = pkbase
 extensions = "md;otl;txt;html"
 viewdir = "views/"
-incdir = "includes/"
-libdir = "libraries/"
+incdir = "../grotto/"
+libdir = "../grotto/"
 modeldir = "models/"
-

@@ -10,7 +10,6 @@ else {
 	$sidebar = $pkb->get_sidebar($which_tree);
 }
 
-$buttons = 'TA';
 $page = '';
 $title = 'Welcome';
 
@@ -21,7 +20,6 @@ $content = $pd->text($readme);
 
 $d = [
 	'sidebar' => $sidebar,
-	'buttons' => 'TA',
 	'page' => '',
 	'title' => 'Welcome',
 	'content' => $content

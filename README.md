@@ -28,7 +28,7 @@ software, and copy it there. Edit your `config/config.ini`.
 Change the following lines to suit your needs:
 
 ```
-content_dir = /home/paulf/pkbase
+content_dir = "/home/paulf/vimwiki"
 site_title = "Paul's Knowledge Base"
 slogan = "All you need to know..."
 ```
@@ -40,6 +40,18 @@ You may now add content (files and subdirectories) to the
 `content_dir` you selected above. I keep content in my home
 directory, rather than under the webserver directory hierarchy.
 You're free to choose differently.
+
+You will also need a package called "grotto" from the place where you got
+this package. It contains utilities this package uses. It's best to install
+it outside the hierarchy for this package, but you can install it anywhere
+you like. In the PKBase hierarchy, you will find a file called
+`config/config.ini`. Edit the following two lines to match where you put
+your "grotto" software, if you change it from what is below:
+
+```
+incdir = "../grotto/"
+libdir = "../grotto/"
+```
 
 ## Operation
 
@@ -56,7 +68,8 @@ designed so that one person maintains the knowledge base, and others may
 use it.
 
 The software can parse markdown, HTML, text and vim outline files.
-Extensions must be `.md`, `.html`, `.txt` or `.otl`, respectively.
+Extensions must be `.md`, `.html`, `.txt` or `.otl`, respectively. It will
+also display images.
 
 ## File And Directory Names
 

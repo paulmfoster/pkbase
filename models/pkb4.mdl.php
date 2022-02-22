@@ -281,34 +281,53 @@ class pkb4
 		global $cfg;
 
 		$ext = pathinfo($page, PATHINFO_EXTENSION);
-		if ($ext == 'md') {
+		switch ($ext) {
+		case 'md':
 			include $cfg['libdir'] . 'Parsedown.php';
 			$pd = new Parsedown;
-			$content = file_get_contents($page);
-			$text = $pd->text($content);
-			return $text;
-		}
-		elseif ($ext == 'otl') {
-			include $cfg['libdir'] . 'vimoutline.lib.php';
-			$votl = new vimoutline($page);
+			$text = file_get_contents($page);
+			$content = $pd->text($text);
+			break;
+		case 'otl':
+			$votl = library('vimoutline', $page);
 			$content = $votl->parse();
-			return $content;
-		}
-		elseif ($ext == 'txt') {
+			break;
+		case 'TXT':
+		case 'txt':
 			$text = file_get_contents($page);
 			// mimic line endings in original file
 			$content = nl2br($text);
-			return $content;
-		}
-		elseif ($ext == 'html') {
+			break;
+		case 'HTML':
+		case 'HTM':
+		case 'htm':
+		case 'html':
 			$content = file_get_contents($page);
-			return $content;
-		}
-		else {
+			break;
+		case 'jpg':
+		case 'JPG':
+		case 'jpeg':
+		case 'JPEG':
+			$stuff = base64_encode(file_get_contents($page));
+			$content = '<img src="data:image/jpg;base64,'. $stuff . '">';
+			break;
+		case 'png':
+		case 'PNG':
+			$stuff = base64_encode(file_get_contents($page));
+			$content = '<img src="data:image/png;base64,'. $stuff . '">';
+			break;
+		case 'gif':
+		case 'GIF':
+			$stuff = base64_encode(file_get_contents($page));
+			$content = '<img src="data:image/gif;base64,'. $stuff . '">';
+			break;
+		default:
 			$text = file_get_contents($page);
 			$content = $text;
-			return $content;
+			break;
 		}
+
+		return $content;
 	}
 
 	/**

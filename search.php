@@ -6,7 +6,6 @@ $results = $pkb->get_search_results($search_for);
 
 $d = [
 	'results' => $results,
-	'buttons' => 'A',
 	'page' => '',
 	'title' => 'Search Results',
 	'sidebar' => $pkb->get_sidebar($cfg['content_dir'])
