@@ -283,7 +283,7 @@ class pkb4
 		$ext = pathinfo($page, PATHINFO_EXTENSION);
 		switch ($ext) {
 		case 'md':
-			include $cfg['libdir'] . 'Parsedown.php';
+			include $cfg['grottodir'] . 'Parsedown.php';
 			$pd = new Parsedown;
 			$text = file_get_contents($page);
 			$content = $pd->text($text);

@@ -13,7 +13,7 @@ else {
 $page = '';
 $title = 'Welcome';
 
-include $cfg['libdir'] . 'Parsedown.php';
+include $cfg['grottodir'] . 'Parsedown.php';
 $pd = new Parsedown;
 $readme = file_get_contents('README.md');
 $content = $pd->text($readme);
