@@ -1,27 +1,35 @@
 <?php
-include 'init.php';
 
-$which_tree = $_GET['tree'] ?? NULL;
+// CAUTION: Edit this file at your own risk. Upgrades to Grotworx may
+// overwrite any changes made.
 
-if (is_null($which_tree)) {
-	$sidebar = $pkb->get_sidebar($cfg['content_dir']);
+// define system directories
+define('SYSDIR', 'system/');
+define('INCDIR', SYSDIR . 'includes/');
+define('LIBDIR', SYSDIR . 'libraries/');
+
+// define application directories
+define('APPDIR', 'app/');
+define('CFGDIR', APPDIR . 'config/');
+define('PRINTDIR', APPDIR . 'printq/');
+define('IMGDIR', APPDIR . 'images/');
+define('DATADIR', APPDIR . 'data/');
+define('MODELDIR', APPDIR . 'models/');
+define('VIEWDIR', APPDIR . 'views/');
+define('CTLDIR', APPDIR . 'controllers/');
+
+// provide common utilities
+include INCDIR . 'utils.inc.php';
+
+// load the front controller
+load('controller');
+
+// include optional user code an definitions here, before being routed to
+// the page controller
+if (file_exists(APPDIR . 'bootstrap.php')) {
+	include APPDIR . 'bootstrap.php';
 }
-else {
-	$sidebar = $pkb->get_sidebar($which_tree);
-}
 
-$page = '';
-$title = 'Welcome';
+// branch to the router
+$rtr = load('router');
 
-include $cfg['grottodir'] . 'Parsedown.php';
-$pd = new Parsedown;
-$readme = file_get_contents('README.md');
-$content = $pd->text($readme);
-
-$d = [
-	'sidebar' => $sidebar,
-	'page' => '',
-	'title' => 'Welcome',
-	'content' => $content
-];
-view('Welcome', $d, '', 'index');

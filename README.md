@@ -1,3 +1,4 @@
+# Paul's Knowledge Base (PKBase)
 
 PKBase is like a wiki in web format, except that you also have
 an index on screen for your files. Most wikis store your data/documents
@@ -40,18 +41,6 @@ You may now add content (files and subdirectories) to the
 `content_dir` you selected above. I keep content in my home
 directory, rather than under the webserver directory hierarchy.
 You're free to choose differently.
-
-You will also need a package called "grotto" from the place where you got
-this package. It contains utilities this package uses. It's best to install
-it outside the hierarchy for this package, but you can install it anywhere
-you like. In the PKBase hierarchy, you will find a file called
-`config/config.ini`. Edit the following two lines to match where you put
-your "grotto" software, if you change it from what is below:
-
-```
-incdir = "../grotto/"
-libdir = "../grotto/"
-```
 
 ## Operation
 
@@ -101,11 +90,20 @@ to see it. This searches your entire catalog of files.
 
 ## Links To Other Documents
 
-There are times when you may want to include an image or PDF or somesuch
-in a document. You don't want to put these in your main content
-directory; they're likely to muck things up. Instead, it's recommended you
-set up an "images" directory, put images there and link to them in your
-documents.
+There are times when you may want to include an image or link to some other
+document not contained in your main content directory. Such links, when
+rendered in PKBase, may not work. The reason is complicated. Assuming you're
+basing your Vimwiki content in `~/vimwiki`, you might have an images
+directory in that hierarchy. The links in your markdown documents refer to,
+say, images in your `~/vimwiki/images` directory. They're relative links,
+relative to your vimwiki directory. When PKBase interprets your links, it
+keeps them just like you wrote them-- relative to your vimwiki directory.
+But PKBase runs in your web directory. So its home directory is not the
+same as your vimwiki's. So those relative links won't work.
+
+I don't know a way around this. You could make copies of all your images,
+and put them in an `images/` subdirectory of PKBase, I suppose. But that's
+about the best suggestion I can give you.
 
 ## License
 
@@ -119,17 +117,20 @@ but you don't have to.
 ## Hacking/Technical Details
 
 This application is written in PHP, and uses a model-view-controller
-paradigm of my own design. It has no front controller. Instead, there
-are page controllers for each landing page, in the root directory for
-this project. The views are in the `views/` directory. The model is in
-the `models/` directory. It uses the **Parsedown** library to parse
-content in "markdown" format. It assumes markdown files have a `.md`
-extension. Markdown allows you to specify bold and italic text, various
-levels of headline, tables, and a variety of other types of formatting.
-It will also display Vim "outline" files with an `.otl` extension. It
-will also display files which have a `.txt` extension (plain text
-files). For the latter two, it will maintain the formatting in the file.
-You may also serve up `.html` files, which will be displayed as is.
-Styling is governed by the `style.css` file. I've styled things the way
-I like them. You're free to change the styling.
+paradigm of my own design. It is built upon the Grotworx framework,
+available where you got this software. The code is fairly well commented.
+The directory hierarchy is relatively simple and should be
+self-explanatory. Obviously, any changes you make to the code might be
+overwritten if you attempt to upgrade to a newer version of PKBase
+(assuming there is one).
+
+PKBase uses the **Parsedown** library to parse content in "markdown"
+format. It assumes markdown files have a `.md` extension. Markdown allows
+you to specify bold and italic text, various levels of headline, tables,
+and a variety of other types of formatting. It will also display Vim
+"outline" files with an `.otl` extension. It will also display files which
+have a `.txt` extension (plain text files). For the latter two, it will
+maintain the formatting in the file. You may also serve up `.html` files,
+which will be displayed as is. Styling is governed by the `style.css` file.
+I've styled things the way I like them. You're free to change the styling.
 
