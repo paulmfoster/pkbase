@@ -1,31 +1,30 @@
 <?php
 
-if (!class_exists('database')) {
-    include LIBDIR . 'database.lib.php';
-}
-
 class user
 {
     private const EVERYONE = 255;
 
-	function __construct()
+	function __construct($db)
 	{
-        $filename = DATADIR . 'users.sq3';
-        $already = file_exists($filename);
-        $dsn = 'sqlite:' . $filename;
-        $this->db = new database($dsn);
-
-        if (!$already) {
-            $this->make_tables();
+        $this->db = $db;
+        $this->make_tables();
+        if (!$this->has_users()) {
             $this->sample_admin();
         }
 	}
 
+    function has_users()
+    {
+        $sql = "SELECT * FROM user";
+        $u = $this->db->query($sql)->fetch();
+        return ($u === FALSE) ? FALSE : TRUE;
+    }
+
     function make_tables()
     {
-        $sql = "CREATE TABLE user (id integer primary key autoincrement, login varchar(30), password varchar(255), name varchar(50) not null, email varchar(255) not null, nonce varchar(255) not null, level integer default 255)";
+        $sql = "CREATE TABLE IF NOT EXISTS user (id integer primary key autoincrement, login varchar(30), password varchar(255), name varchar(50) not null, email varchar(255) not null, nonce varchar(255) not null, level integer default 255)";
         $this->db->query($sql);
-        $sql = "CREATE TABLE confirm (id integer primary key autoincrement, login varchar(30), password varchar(255), name varchar(50), email varchar(255), nonce varchar(255), level integer, ip varchar(15), link varchar(255), timestamp integer)";
+        $sql = "CREATE TABLE IF NOT EXISTS confirm (id integer primary key autoincrement, login varchar(30), password varchar(255), name varchar(50), email varchar(255), nonce varchar(255), level integer, ip varchar(15), link varchar(255), timestamp integer)";
         $this->db->query($sql);
     }
 

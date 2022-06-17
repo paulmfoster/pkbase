@@ -55,7 +55,7 @@ class router
     /**
      * Parse the GET parameter.
      *
-     * URLs should be in the form index.php?url=controller/method
+     * URLs should be in the form index.php?url=controller/method/param1/param2
      *
      */
 

@@ -15,14 +15,14 @@ class navigation
     /**
      * Initialize menu.
      *
-     * @param character Menu type (H, h, A, a, L, l)
+     * @param character Menu type (H, h, A, a, L, l, T, t)
      * @param array Associative array of links
      * @param array Any existing menu items
      */
 
-	function init($menu_type = '', $links, $top = NULL)
+	function init($menu_type, $links, $top = NULL)
 	{
-		if (!is_string($menu_type) || strpos('HhLlAa', $menu_type) === FALSE) {
+		if (strpos('HhLlAaTt', $menu_type) === FALSE) {
 			die('Specified a non-existent menu type. Aborting.');
 		}
 
@@ -66,6 +66,10 @@ class navigation
 		case 'l':
 			$str = $this->linear();
 			break;
+        case 'T':
+        case 't':
+            $str = $this->top();
+            break;
 		default:
 			$str = '';
 		}
@@ -170,6 +174,32 @@ class navigation
 
 		return $str;
 	}
+
+    function top()
+    {
+        $str = '<ul>' . PHP_EOL;
+
+        foreach ($this->links as $key => $value) {
+            if (is_array($value)) {
+                // handle as title/array of links
+                $str .= "<li><a href=\"\">$key</a>";
+                $str .= "<ul class=\"dropdown\">" . PHP_EOL;
+                foreach ($value as $link => $url) {
+                    $str .= "<li><a href=\"$url\">$link</a></li>" . PHP_EOL;
+                }
+                $str .= "</ul>" . PHP_EOL;
+                $str .= "</li>" . PHP_EOL;
+            }
+            else {
+                // handle as single link
+                $str .= "<li><a href=\"$value\">$key</a></li>" . PHP_EOL;
+            }
+        }
+
+        $str .= '</ul>' . PHP_EOL;
+
+        return $str;
+    }
 }
 
 

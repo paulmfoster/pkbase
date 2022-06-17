@@ -148,6 +148,9 @@ function filled_out($post, $indexes)
 		elseif (is_null($post[$value])) {
 			$errors++;	
 		}
+        elseif (strlen(trim($post[$value])) == 0) {
+            $errors++;
+        }
 	}
 
 	return ($errors == 0) ? TRUE : FALSE;
@@ -214,3 +217,48 @@ function generate_tables($dsn, $sqlfile)
 
     return $db;
 }
+
+/**
+ * Generate/populate tables.
+ *
+ * Assumes you have a PHP file with an array of SQL statements. This
+ * routine will run those statements one at a time to either
+ * create/generate the tables needed or populate them.
+ *
+ * @param object $db A database object
+ * @param string $sqlfile The PHP file with SQL statement array
+ */
+
+function genpop($db, $sqlfile)
+{
+	// add the tables
+	if (!file_exists($sqlfile)) {
+		die("You need the file '$sqlfile' to start, and it's missing.");
+	}
+    include $sqlfile;
+	foreach ($records as $sql) {
+		$db->query($sql);
+	}
+}
+
+/** Simplify writing out URLs for user.
+ *
+ * Originally, Grotworx wanted URLs in the form of
+ * "index.php?url=controller/method/params". This is cumbersome to write
+ * out. And at some point, some "better" scheme might be used. This
+ * function is designed to allow the user to skip the "index.php?url="
+ * preamble, and just supply the controller, method and parameters. In
+ * addition, if the "index.php?url=" part ever changes, it only has to be
+ * changed in this function (and the router code) in order to make the
+ * change global (assuming the user uses this function for his/her URLs).
+ *
+ * @return string The URL needed for the system.
+ */
+
+function url()
+{
+    $args = func_get_args();
+    $str = implode('/', $args);
+    return "index.php?url=$str";
+}
+
