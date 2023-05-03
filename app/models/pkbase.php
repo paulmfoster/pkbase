@@ -2,6 +2,8 @@
 
 class pkbase
 {
+    public $content_dir, $tree, $directories, $results;
+
 	function __construct()
 	{
 		global $cfg;

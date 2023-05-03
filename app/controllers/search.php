@@ -2,6 +2,9 @@
 
 class search extends controller
 {
+    public $cfg, $pkb;
+    public $title, $page, $sidebar;
+
     function __construct()
     {
         global $cfg, $pkb;
