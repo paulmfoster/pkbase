@@ -1,6 +1,6 @@
 <?php include VIEWDIR . 'head.view.php'; ?>
-<?php extract($data); ?>
-<h1><?php echo $this->title; ?></h1>
+
+<h1><?php echo $title; ?></h1>
 
 <?php echo $content; ?>
 

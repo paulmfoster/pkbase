@@ -148,16 +148,16 @@ class pkbase
 
 		if ($dir != $this->content_dir) {
 			$before = substr($dir, 0, strrpos($dir, DIRECTORY_SEPARATOR));
-			$str .= '<li><a href="index.php?url=welcome/index/' . $this->hide($before) . '">&lt; Back</a></li>' . PHP_EOL;
+			$str .= '<li><a href="index.php?dir=' . $this->hide($before) . '">&lt; Back</a></li>' . PHP_EOL;
 		}
 
 		foreach ($this->tree as $entry) {
 			$str .= '<li>';
 			if ($entry['isdir'] == 'D') {
-				$str .= '<a class="dirlink" href="index.php?url=welcome/index/' . $this->hide($entry['filename']) . '">' . $entry['title'] . ' &gt;</a>';
+				$str .= '<a class="dirlink" href="index.php?tree=' . $this->hide($entry['filename']) . '">' . $entry['title'] . ' &gt;</a>';
 			}
 			else {
-				$str .= '<a class="filelink" href="index.php?url=show/page/' . $this->hide($entry['filename']) . '">' . $entry['title'] . '</a>';
+				$str .= '<a class="filelink" href="show.php?page=' . $this->hide($entry['filename']) . '">' . $entry['title'] . '</a>';
 			}
 			$str .= '</li>' . PHP_EOL;
 		}
@@ -231,7 +231,8 @@ class pkbase
 		$ext = pathinfo($page, PATHINFO_EXTENSION);
 		switch ($ext) {
 		case 'md':
-			$pd = load('Parsedown');
+            global $pd;
+			// $pd = load('Parsedown');
 			$text = file_get_contents($page);
 			$content = $pd->text($text);
 			break;
@@ -278,7 +279,7 @@ class pkbase
 	}
 
 	/**
-	 * search_file()
+	 * Search file for content.
 	 *
 	 * @param string $file The file in which to search
 	 * @param string $search_for That for which to search
@@ -360,6 +361,8 @@ class pkbase
 
 	function get_search_results($search_for)
 	{
+        global $cfg;
+
 		$matches = [];
 		$n = 0;
 
@@ -368,37 +371,17 @@ class pkbase
 
 		// iterate over each one
 		foreach ($list as $file) {
-
-			// if the file contains the string
-			if ($this->search_file($file, $search_for)) {
-
-				// add filename to the match list
-				$matches[$n]['filename'] = $file;
-				// check for a map for that directory
-				$dir = substr($file, 0, strrpos($file, DIRECTORY_SEPARATOR));
-				$map = $this->read_map($dir);
-				if (empty($map[1])) {
-					// no map
-					// derive title from filename
-					// add title to match list
-					$matches[$n]['title'] = $this->get_title_from_filename($file);
-				}
-				else {
-					// there was a map
-					foreach ($map[1] as $entry) {
-						if ($entry['filename'] == $file) {
-							$matches[$n]['title'] = $entry['title'];
-							break;
-						}
-					}
-					// if the file wasn't found in the map...
-					if (!isset($matches[$n]['title'])) {
-						// revert to getting the title from the filename
-						$matches[$n]['title'] = $this->get_title_from_filename($file);
-					}
-				}
-				$n++;
-			}
+            // don't check non-text file
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            if (strstr($cfg['extensions'], $ext)) {
+                // if the file contains the string
+                if ($this->search_file($file, $search_for)) {
+                    // add filename to the match list
+                    $matches[$n]['filename'] = $file;
+                    $matches[$n]['title'] = $this->get_title_from_filename($file);
+                    $n++;
+                }
+            }
 		}
 
 		return $matches;

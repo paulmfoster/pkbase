@@ -1,35 +1,22 @@
 <?php
 
-// CAUTION: Edit this file at your own risk. Upgrades to Grotworx may
-// overwrite any changes made.
+include 'init.php';
 
-// define system directories
-define('SYSDIR', 'system/');
-define('INCDIR', SYSDIR . 'includes/');
-define('LIBDIR', SYSDIR . 'libraries/');
+$tree = $_GET['tree'] ?? NULL;
 
-// define application directories
-define('APPDIR', 'app/');
-define('CFGDIR', APPDIR . 'config/');
-define('PRINTDIR', APPDIR . 'printq/');
-define('IMGDIR', APPDIR . 'images/');
-define('DATADIR', APPDIR . 'data/');
-define('MODELDIR', APPDIR . 'models/');
-define('VIEWDIR', APPDIR . 'views/');
-define('CTLDIR', APPDIR . 'controllers/');
-
-// provide common utilities
-include INCDIR . 'utils.inc.php';
-
-// load the front controller
-load('controller');
-
-// include optional user code an definitions here, before being routed to
-// the page controller
-if (file_exists(APPDIR . 'bootstrap.php')) {
-	include APPDIR . 'bootstrap.php';
+if (is_null($tree)) {
+    $sidebar = $pkb->get_sidebar($cfg['content_dir']);
+}
+else {
+    $sidebar = $pkb->get_sidebar($pkb->unhide($tree));
 }
 
-// branch to the router
-$rtr = load('router');
+$readme = file_get_contents('README.md');
+$content = $pd->text($readme);
+
+$title = 'Welcome';
+$page = '';
+$sidebar = $sidebar;
+
+include VIEWDIR . 'index.view.php';
 
