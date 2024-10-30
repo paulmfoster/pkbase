@@ -240,6 +240,7 @@ class pkbase
 			$votl = load('vimoutline', $page);
 			$content = $votl->parse();
 			break;
+        case 'org':
 		case 'TXT':
 		case 'txt':
 			$text = file_get_contents($page);
