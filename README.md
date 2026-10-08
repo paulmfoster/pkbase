@@ -20,7 +20,7 @@ server on my machine, and she can surf to my webserver from her machine.
 
 - A running web server you have access to.
 - PHP installed on your web server.
-- A place to house and edit your knowldege base files.
+- A place to house and edit your knowledge base files.
 
 ## Installation
 

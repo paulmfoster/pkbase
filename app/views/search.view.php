@@ -4,7 +4,7 @@
 
 <?php foreach ($results as $link): ?>
 
-<a href="show.php?page=<?php echo $pkb->hide($link['filename']); ?>"><?php echo $link['title']; ?></a><br>
+<a href="show.php?page=<?php echo $link['filename']; ?>"><?php echo $link['title']; ?></a><br>
 
 <?php endforeach; ?>
 

@@ -7,12 +7,11 @@ if (is_null($page)) {
     redirect('index.php');
 }
 
-$upage = $pkb->unhide($page);
+// $upage = $pkb->unhide($page);
 
-$sidebar = $pkb->get_sidebar($upage);
-$title = $pkb->get_title($upage);
-$page = $upage;
-$content = $pkb->get_content($upage);
+$sidebar = $pkb->get_sidebar($page);
+$title = $pkb->get_title($page);
+$content = $pkb->get_content($page);
 
 include VIEWDIR . 'show.view.php';
 

@@ -17,7 +17,8 @@ class show extends controller
         if (is_null($page)) {
             redirect('index.php');
         }
-        $upage = $this->pkb->unhide($page);
+        // $upage = $this->pkb->unhide($page);
+        $upage = $page;
 
         $this->sidebar = $this->pkb->get_sidebar($upage);
         $this->title = $this->pkb->get_title($upage);

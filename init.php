@@ -32,6 +32,5 @@ session_start();
 load('errors');
 load('messages');
 $pd = load('Parsedown');
-// $form = load('form');
 $pkb = model('pkbase');
 
