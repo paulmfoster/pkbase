@@ -3,3 +3,7 @@ DEVNOTES.md
 images/*
 Session.vim
 error.log
+app/config/config.ini
+content/*
+system/includes/*
+system/libraries/*
