@@ -17,7 +17,13 @@ define('VIEWDIR', APPDIR . 'views/');
 // read config file
 $cfgfile = CFGDIR . 'config.ini';
 if (!file_exists($cfgfile)) {
-    die('File <strong>' . CFGDIR . 'config.ini</strong> is missing. Aborting.');
+    $sample_config = CFGDIR . 'config.sample';
+    if (file_exists($sample_config)) {
+        copy($sample_config, $cfgfile);
+    }
+    else {
+        die('File <strong>' . $sample_config . '</strong> is missing. Aborting.');
+    }
 }
 $cfg = parse_ini_file(CFGDIR . 'config.ini');
 
