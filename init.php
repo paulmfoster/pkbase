@@ -2,8 +2,6 @@
 
 // define system directories
 define('SYSDIR', 'system/');
-define('INCDIR', SYSDIR . 'includes/');
-define('LIBDIR', SYSDIR . 'libraries/');
 
 // define application directories
 define('APPDIR', 'app/');
